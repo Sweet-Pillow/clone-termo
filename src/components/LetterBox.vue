@@ -1,29 +1,35 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps(['letra', 'index'])
+const props = defineProps(['letra', 'index', 'selectedBox'])
 
-const clicked = ref(false)
 const letter = ref("")
 
+const emit = defineEmits(['handleSelectedBox'])
+
 const selectLetter = () => {
-    clicked.value = true
+    emit('handleSelectedBox', props.index)
+
 }
 
-const handleBlur = () => {
-    clicked.value = false
-}
 
 const getLetter = (event) => {
     const regex = /^[a-zA-Z\s]$/;
     regex.test(event.key)? letter.value = event.key.toUpperCase(): ""
-    console.log(event.key)
+    
+    // const currentElement = 
+    const brother = event.target.nextElementSibling
+
+    if (brother) {
+        brother.focus()
+    }
+
+    emit('handleSelectedBox')
 }
 
 </script>
-
 <template>
-    <div @click="selectLetter" @keyup="getLetter" @blur="handleBlur" tabindex="0" class="font-bold size-10 border border-black flex justify-center items-center text-2xl select-none ":class="{' border-b-4': clicked}">
+    <div @click="selectLetter" @keydown="getLetter" tabindex="0" class="font-bold size-10 border border-black flex justify-center items-center text-2xl select-none ":class="{' border-b-4': (props.selectedBox == props.index)}">
         {{ letter }}
     </div>
 </template>
