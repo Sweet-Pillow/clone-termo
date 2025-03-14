@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps(['letter', 'index', 'selectedBox'])
+const props = defineProps(['letter', 'index', 'selectedBox', 'verifyLetters', 'word'])
 
 const letter = ref("")
 
@@ -51,11 +51,21 @@ const getLetter = (event) => {
     }
 }
 
+const verify = (v) => {
+    if(v & letter.value == props.letter){
+        return 1
+    } else if(v & props.word.includes(letter.value)){
+        return 2
+    } else if(v){
+        return 3
+    }
+}
+
 </script>
 <template>
     <div @click="selectLetter" @keydown="getLetter" tabindex="0"
         class="font-bold size-10 border border-black flex justify-center items-center text-2xl select-none "
-        :class="{ ' border-b-4': (props.selectedBox == props.index) }">
+        :class="{ ' border-b-4': (props.selectedBox == props.index), ' bg-green-400': verify(verifyLetters) == 1, ' bg-yellow-400': verify(verifyLetters) == 2, ' bg-gray-400': verify(verifyLetters) == 3}">
         {{ letter }}
     </div>
 </template>
