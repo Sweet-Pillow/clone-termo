@@ -6,9 +6,23 @@ const props = defineProps(['indexRow', 'currentIndexRow'])
 
 const currenIndextLetter = ref(0)
 
+const arrLetter = [
+    ref(''),
+    ref(''),
+    ref(''),
+    ref(''),
+    ref(''),
+]
+
 let isCurrentRow = props.indexRow == props.currentIndexRow
 
-const handleChangeFocus = (event) => {
+const handleChangeFocus = (event, index) => {
+    
+    // Functions to manager the focus when clicked
+    if(event.type == "click"){
+        currenIndextLetter.value = index
+        return
+    }
 
     // Functions to manager the focus when the key is pressed
     if (event.key != "Backspace") {
