@@ -9,10 +9,12 @@ const letter = ref('')
 const handleKeydown = (event) => {
     const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿÇç]$/
 
-    if(regex.test(event.key)){
-        letter.value = event.key.toUpperCase();
+    if(regex.test(event.key) || event.key == 'Backspace'){
+
+        letter.value = event.key !== 'Backspace'? event.key.toUpperCase(): ''
         emit('handleChangeFocus', event)
     }
+    
 }
 
 </script>
