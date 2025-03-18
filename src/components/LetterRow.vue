@@ -6,7 +6,7 @@ const props = defineProps(['indexRow', 'currentIndexRow'])
 
 const currenIndextLetter = ref(0)
 
-const arrLetter = [
+const letters = [
     ref(''),
     ref(''),
     ref(''),
@@ -14,11 +14,11 @@ const arrLetter = [
     ref(''),
 ]
 
-let isCurrentRow = props.indexRow == props.currentIndexRow
+const isCurrentRow = ref(props.indexRow == props.currentIndexRow)
 
 const handleChangeFocus = (event, index) => {
     
-    // Functions to manager the focus when clicked
+    // Function to manager the focus when clicked
     if(event.type == "click"){
         currenIndextLetter.value = index
         return
